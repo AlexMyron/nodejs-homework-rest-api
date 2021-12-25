@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { ctrlWrapper, validation, authenticate } = require('../../middlewares');
+const { ctrlWrapper, validation, authenticate, upload } = require('../../middlewares');
 const ctrl = require('../../controllers/auth');
 const { auth } = require('../../model');
 const { authSchema } = auth;
@@ -14,5 +14,9 @@ router.post('/login', validation(authSchema), ctrlWrapper(ctrl.login));
 router.get('/logout', authenticate, ctrlWrapper(ctrl.logout));
 
 router.get('/current', authenticate, ctrlWrapper(ctrl.current));
+
+router.patch('/avatars', authenticate, upload.single('avatar'), ctrlWrapper(ctrl.updateAvatar));
+
+router.get('/verify/:verificationToken', ctrlWrapper(ctrl.verifyEmai));
 
 module.exports = router;
