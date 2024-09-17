@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 const { validation, ctrlWrapper, authenticate } = require('../../middlewares');
 
